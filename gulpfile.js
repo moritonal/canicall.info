@@ -79,8 +79,9 @@ gulp.task("manifest", () => {
         .pipe(gulp.dest(stagingDirectory));
 });
 
+gulp.task("code", ["js", "sass", "index", "html", "runNpmInstall", "images", "manifest"])
 
-gulp.task('generate-service-worker', () => {
+gulp.task('generate-service-worker', ["code"], () => {
     return workbox.generateSW({
         globDirectory: stagingDirectory,
         globPatterns: ["**\/*.{html,js,css,jpg}"],
@@ -122,4 +123,4 @@ gulp.task('watch', function() {
     gulp.watch('./app/*.html', ['index']);
 });
 
-gulp.task("default", ["js", "sass", "index", "html", "runNpmInstall", "images", "manifest"]);
+gulp.task("default", ["generate-service-worker"]);
