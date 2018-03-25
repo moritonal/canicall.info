@@ -79,7 +79,6 @@ gulp.task("manifest", () => {
         .pipe(gulp.dest(stagingDirectory));
 });
 
-let dist = "docs";
 
 gulp.task('generate-service-worker', () => {
     return workbox.generateSW({
