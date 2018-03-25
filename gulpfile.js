@@ -35,7 +35,7 @@ gulp.task("images-528", ["images-144"], function() {
         .pipe(gulp.dest(stagingDirectory));
 });
 
-gulp.task("images", ["images-144"], function() {
+gulp.task("images", ["images-528"], function() {
     return gulp.src("./app/images/**/*.svg")
         .pipe(replace("%text%", appName))
         .pipe(raster({scale: 1}))
