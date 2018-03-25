@@ -10,8 +10,8 @@ const livereload = require('gulp-livereload');
 const raster = require('gulp-raster');
 let workbox = require("workbox-build");
 
-const appName = "C";
 const stagingDirectory = "dist";
+const appName = "CiC";
 
 gulp.task("js", () => {
     return gulp.src("./app/**/*.js")
