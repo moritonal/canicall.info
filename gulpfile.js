@@ -15,7 +15,7 @@ const appName = "CiC";
 
 gulp.task("js", () => {
     return gulp.src("./app/**/*.js")
-        .pipe(gulp.dest("docs"))
+        .pipe(gulp.dest(stagingDirectory))
         .pipe(livereload(server));
 });
 
@@ -47,19 +47,19 @@ gulp.task("sass", () => {
     return gulp.src("./app/**/*.scss")
         .pipe(sass({errLogToConsole: true}))
         .pipe(minifycss())
-        .pipe(gulp.dest("docs"))
+        .pipe(gulp.dest(stagingDirectory))
         .pipe(livereload(server));
 });
 
 gulp.task("index", () => {
     return gulp.src("./app/index.html")
-        .pipe(gulp.dest("docs"))
+        .pipe(gulp.dest(stagingDirectory))
         .pipe(livereload(server));
 });
 
 gulp.task("html", () => {
     return gulp.src("./app/**/*.html")
-        .pipe(gulp.dest("docs"))
+        .pipe(gulp.dest(stagingDirectory))
         .pipe(livereload(server));
 });
 
@@ -76,16 +76,16 @@ gulp.task("runNpmInstall", ["copyPackageJson"], function() {
 
 gulp.task("manifest", () => {
     return gulp.src("./app/manifest.json")
-        .pipe(gulp.dest('docs/'));
+        .pipe(gulp.dest(stagingDirectory));
 });
 
 let dist = "docs";
 
 gulp.task('generate-service-worker', () => {
     return workbox.generateSW({
-        globDirectory: dist,
+        globDirectory: stagingDirectory,
         globPatterns: ["**\/*.{html,js,css,jpg}"],
-        swDest: `${dist}/sw.js`,
+        swDest: `${stagingDirectory}/sw.js`,
         clientsClaim: true,
         skipWaiting: true,
         runtimeCaching: [
