@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <script src="/node_modules/moment/min/moment.min.js"></script>
+    <script src="/node_modules/moment-timezone/builds/moment-timezone-with-data-2012-2022.min.js"></script>
+    <script src="/node_modules/vue-localstorage/dist/vue-local-storage.min.js"></script>
+    <script src="/node_modules/vue/dist/vue.js"></script>
+    <script src="/node_modules/localforage/dist/localforage.min.js"></script>
+
+    <script src="/js/index.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="scss/index.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>Can I Call</title>
+    <meta name="description" content="Can I Call a destination">
+
+    <link rel="icon" href="/icon.png">
+    <link rel="manifest" href="/manifest.json">
+
+    <meta name="theme-color" content="#f5f5eb">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+
+            <div class="outputContainer">
+                <div class="timezone">
+                    {{cleanTimeZone}} - {{cleanTime}}
+                </div>
+                <div class="canCall">
+                    {{canCall}}
+                </div>
+            </div>
+
+            <div class="inputContainer">
+                <div>Where are they?</div>
+                <input v-model="location" placeholder="Location">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

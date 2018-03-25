@@ -1,0 +1,51 @@
+body {
+    background-color: #c0c0ff;
+}
+
+#app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.container {
+    padding: 10px;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.canCall {
+    font-size: 10em;
+}
+
+.timezone {
+
+}
+
+.inputContainer {
+    padding: 5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding-bottom: 20px;
+}
+
+.inputContainer > input {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+}
+
+.outputContainer {
+    flex-grow: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
