@@ -79,7 +79,7 @@ gulp.task("manifest", () => {
         .pipe(gulp.dest(stagingDirectory));
 });
 
-gulp.task("noJekyll", () => {
+gulp.task("noJekyll", ["generate-service-worker"], () => {
     const path = require("path");
     const fs = require("fs");
 
@@ -130,4 +130,4 @@ gulp.task('watch', function() {
     gulp.watch('./app/*.html', ['index']);
 });
 
-gulp.task("default", ["generate-service-worker", "noJekyll"]);
+gulp.task("default", ["noJekyll"]);
