@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "http-server": "http-server dist",
+    "watch": "gulp watch",
+    "build": "gulp"
   },
   "author": "",
   "license": "ISC",
