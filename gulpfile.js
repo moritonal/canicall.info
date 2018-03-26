@@ -80,7 +80,10 @@ gulp.task("manifest", () => {
 });
 
 gulp.task("noJekyll", () => {
-    require('fs').writeFileSync(`${stagingDirectory}\\.nojekyll`, "");
+    const path = require("path");
+    const fs = require("fs");
+
+    fs.writeFileSync(path.join(stagingDirectory, ".nojekyll"), "")
 })
 
 gulp.task("code", ["js", "sass", "index", "html", "runNpmInstall", "images", "manifest", "noJekyll"])
