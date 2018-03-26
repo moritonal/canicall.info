@@ -14,11 +14,13 @@ function debounce(func, wait, immediate) {
     };
 };
 
+let app = null;
+
 function main() {
 
     Vue.use(VueLocalStorage);
 
-    let app = new Vue({
+    app = new Vue({
         el: '#app',
         data: {
             location: "",
@@ -137,6 +139,23 @@ function main() {
         });
     }
 }
+
+window.onfocus = () => {
+    if (app) {
+        app.timeZone = app.timeZone;
+    }
+};
+
+if (typeof document.addEventListener === "undefined" || typeof document.hidden === "undefined") {
+} else
+{
+    document.addEventListener("visibilitychange", ()=>{
+        if (app) {
+            app.timeZone = app.timeZone;
+        }
+    }, false);
+}     
+   
 
 document.addEventListener("DOMContentLoaded", (event) => {
     main();
