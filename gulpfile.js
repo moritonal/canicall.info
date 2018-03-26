@@ -79,7 +79,11 @@ gulp.task("manifest", () => {
         .pipe(gulp.dest(stagingDirectory));
 });
 
-gulp.task("code", ["js", "sass", "index", "html", "runNpmInstall", "images", "manifest"])
+gulp.task("noJekyll", () => {
+    require('fs').writeFileSync(`${stagingDirectory}\\.nojekyll`, "");
+})
+
+gulp.task("code", ["js", "sass", "index", "html", "runNpmInstall", "images", "manifest", "noJekyll"])
 
 gulp.task('generate-service-worker', ["code"], () => {
     return workbox.generateSW({
