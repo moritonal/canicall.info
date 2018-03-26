@@ -86,7 +86,7 @@ gulp.task("noJekyll", () => {
     fs.writeFileSync(path.join(stagingDirectory, ".nojekyll"), "")
 })
 
-gulp.task("code", ["js", "sass", "index", "html", "runNpmInstall", "images", "manifest", "noJekyll"])
+gulp.task("code", ["js", "sass", "index", "html", "runNpmInstall", "images", "manifest"])
 
 gulp.task('generate-service-worker', ["code"], () => {
     return workbox.generateSW({
@@ -130,4 +130,4 @@ gulp.task('watch', function() {
     gulp.watch('./app/*.html', ['index']);
 });
 
-gulp.task("default", ["generate-service-worker"]);
+gulp.task("default", ["generate-service-worker", "noJekyll"]);
