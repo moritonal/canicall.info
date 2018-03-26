@@ -7,6 +7,9 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 
 .container {
@@ -14,6 +17,7 @@ body {
     display: flex;
     height: 100%;
     flex-direction: column;
+    align-items: center;
 }
 
 .canCall {
@@ -25,14 +29,12 @@ body {
 }
 
 .inputContainer {
-    padding: 5;
+    padding: 5px 5px 20px;
 
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
-    padding-bottom: 20px;
 }
 
 .inputContainer > input {
