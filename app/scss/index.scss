@@ -1,5 +1,5 @@
 body {
-    background-color: #c0c0ff;
+    margin: 0;
 }
 
 #app {
@@ -10,6 +10,14 @@ body {
     height: 100%;
     width: 100%;
     overflow: hidden;
+}
+
+#background {
+    width: 100%;
+    height: 100%;
+
+    background-color: #c0c0ff;
+    transition: 1s background-color ease-in-out;
 }
 
 .container {
@@ -37,6 +45,10 @@ body {
     flex-direction: column;
 }
 
+.inputContainer > div {
+    user-select: none;
+}
+
 .inputContainer > input {
     background-color: transparent;
     border: none;
@@ -51,4 +63,14 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    user-select: none;
+}
+
+.redBackground {
+    background-color: #ff8787 !important;
+}
+
+.greenBackground {
+    background-color:  #c0c0ff !important;
 }

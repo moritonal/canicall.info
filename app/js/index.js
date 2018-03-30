@@ -37,6 +37,18 @@ function main() {
                 type: String
             }
         },
+        methods: {
+            canCallBool() {
+                if (this.timeZone === "undefined")
+                    return null;
+
+                let timeZonedMoment = moment().tz(this.timeZone);
+
+                let hour = timeZonedMoment.format("HH");
+
+                return hour > 8 && hour < 22 
+            }
+        },
         computed: {
             cleanTime: function () {
                 if (this.timeZone === "undefined")
@@ -49,6 +61,12 @@ function main() {
                     return "";
 
                 return this.timeZone.replace(/_/g, " ").replace(/^(.*)\//g, "");
+            },
+            isRed: function() {
+                return !this.canCallBool()
+            },
+            isGreen: function() {
+                return this.canCallBool()
             },
             canCall: function () {
 
@@ -133,7 +151,27 @@ function main() {
 
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js').catch(registrationError => {
+            console.log("Registering service worker");
+            navigator.serviceWorker.register('/sw.js')
+            .then(reg => {
+                console.log("Registered");
+                reg.update();
+                reg.onupdatefound = () => {
+                    console.log("Update found");
+                    const installingWorker = reg.installing;
+
+                    installingWorker.onstatechange = () => {
+                        switch (installingWorker.state) {
+                            case "installed":
+                                if (navigator.serviceWorker.controller) {
+                                    console.log("Update found, refreshing");
+                                    location.reload(true);
+                                }
+                        }
+                    }
+                }
+            })
+            .catch(registrationError => {
                 console.log('SW registration failed: ', registrationError);
             });
         });
