@@ -108,13 +108,17 @@ function main() {
 
                     let target = `https://maps.googleapis.com/maps/api/geocode/json?address=${val}&key=${api}`;
 
-                    let res = await fetch(target);
+                    try {
+                        let res = await fetch(target);
 
-                    let body = await res.json();
+                        let body = await res.json();
 
-                    let latLong = body.results[0].geometry.location;
+                        let latLong = body.results[0].geometry.location;
 
-                    return latLong;
+                        return latLong;
+                    } catch (ex) {
+                        return null;
+                    }
                 }
 
                 async function getTimeZone(lat, long) {
@@ -133,6 +137,9 @@ function main() {
                 }
 
                 let latLong = await getLocation(val);
+
+                if (latLong === null)
+                    return;
 
                 let timeZone = await getTimeZone(latLong.lat, latLong.lng);
 
