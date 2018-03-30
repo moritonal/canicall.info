@@ -8,7 +8,8 @@ const replace = require("gulp-replace");
 const minifycss = require('gulp-minify-css');
 const livereload = require('gulp-livereload');
 const raster = require('gulp-raster');
-let workbox = require("workbox-build");
+const workbox = require("workbox-build");
+const autoprefix = require("gulp-autoprefixer");
 
 const stagingDirectory = "dist";
 const appName = "CiC";
@@ -47,6 +48,7 @@ gulp.task("sass", () => {
     return gulp.src("./app/**/*.scss")
         .pipe(sass({errLogToConsole: true}))
         .pipe(minifycss())
+        .pipe(autoprefix())
         .pipe(gulp.dest(stagingDirectory))
         .pipe(livereload(server));
 });
