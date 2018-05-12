@@ -65,6 +65,7 @@ body {
     flex-direction: column;
     overflow: hidden;
     position: absolute;
+    transform: translate(0px, -50%);
 }
 
 .inputContainer>input {
@@ -111,7 +112,7 @@ body {
 }
 
 .expand-enter-to {
-    transform: translate(0px, 0px);
+    transform: translate(0px, -50%);
 }
 
 .expand-leave-to {
