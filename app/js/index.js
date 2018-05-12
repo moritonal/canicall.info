@@ -67,20 +67,24 @@ function main() {
                 let hour = timeZonedMoment.format("HH");
 
                 return hour > 8 && hour < 22
+            },
+            afterLeave() {
+                console.log("Setting timezone to null");
+                this.timeZone = null;
             }
         },
         computed: {
             isLocationSet: function() {
-                return this.location && this.timeZone !== "undefined"
+                return this.location && this.timeZone && this.timeZone !== "undefined"
             },
             cleanTime: function () {
-                if (this.timeZone === "undefined")
+                if (!this.timeZone || this.timeZone === "undefined")
                     return "";
 
                 return moment().tz(this.timeZone).format("hh:mm A");
             },
             cleanTimeZone: function () {
-                if (this.timeZone === "undefined")
+                if (!this.timeZone || this.timeZone === "undefined")
                     return "";
 
                 return this.timeZone.replace(/_/g, " ").replace(/^(.*)\//g, "");
@@ -93,7 +97,7 @@ function main() {
             },
             canCall: function () {
 
-                if (this.timeZone === "undefined")
+                if (!this.timeZone || this.timeZone === "undefined")
                     return "";
 
                 let pre = this.awesome ? "Love you, and " : "";

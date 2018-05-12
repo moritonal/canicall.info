@@ -28,7 +28,7 @@
         <div id="background" v-bind:class="{redBackground : isRed, greenBackground: isGreen, blankBackground: isLocationSet}">
             <div class="container">
 
-                <transition name="expand">
+                <transition name="expand" v-on:after-leave="afterLeave">
                     <div class="outputContainer" v-show="isLocationSet" key="yesno">
                         <div class="timezone">
                             <span>{{cleanTimeZone}} </span><span>-</span> <span>{{cleanTime}}</span>
