@@ -28,28 +28,51 @@ function main() {
                 return Vue.localStorage.get('timeZone');
             },
             set timeZone(value) {
-                Vue.localStorage.set('timeZone', value);
+
+                if (value == undefined || value == null) {
+                    Vue.localStorage.remove("timeZone")
+                } else {
+                    Vue.localStorage.set('timeZone', value);
+                }
+            },
+            get storedLocation() {
+                return Vue.localStorage.get('location');                
+            },
+            set storedLocation(value) {
+                if (value == undefined || value == null) {
+                    Vue.localStorage.remove("location");
+                } else {
+                    Vue.localStorage.set('location', value);
+                }
             },
             awesome: false
         },
-        localStorage: {
-            timeZone: {
-                type: String
+        created: function() {
+            let storedLocation = this.storedLocation;
+
+            console.log(`Stored location is \"${storedLocation}\"`)
+            if (storedLocation !== null ) {
+                this.location = storedLocation;
             }
+        },
+        localStorage: {
         },
         methods: {
             canCallBool() {
-                if (this.timeZone === "undefined")
+                if (!this.timeZone)
                     return null;
 
                 let timeZonedMoment = moment().tz(this.timeZone);
 
                 let hour = timeZonedMoment.format("HH");
 
-                return hour > 8 && hour < 22 
+                return hour > 8 && hour < 22
             }
         },
         computed: {
+            isLocationSet: function() {
+                return this.location && this.timeZone !== "undefined"
+            },
             cleanTime: function () {
                 if (this.timeZone === "undefined")
                     return "";
@@ -63,10 +86,10 @@ function main() {
                 return this.timeZone.replace(/_/g, " ").replace(/^(.*)\//g, "");
             },
             isRed: function() {
-                return !this.canCallBool()
+                return this.isLocationSet && !this.canCallBool()
             },
             isGreen: function() {
-                return this.canCallBool()
+                return this.isLocationSet && this.canCallBool()
             },
             canCall: function () {
 
@@ -87,8 +110,13 @@ function main() {
         watch: {
             location: debounce(async function (val) {
 
-                if (val === "")
+                console.log(val);
+
+                if (val === "" || val === null) {
+                    this.location = null;
+                    this.storedLocation = null;
                     return;
+                }
 
                 if (val.toLowerCase().includes("tish")) {
                     this.awesome = true;
@@ -144,12 +172,11 @@ function main() {
                 let timeZone = await getTimeZone(latLong.lat, latLong.lng);
 
                 this.timeZone = timeZone;
+                this.storedLocation = val;
 
                 console.log(`Timezone set to ${timeZone}`);
 
                 let timeZonedMoment = moment().tz(timeZone);
-
-                console.log(timeZonedMoment);
 
                 console.log(`Current hour: ${timeZonedMoment.format("HH")}`)
             }, 500)

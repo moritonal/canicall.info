@@ -25,21 +25,23 @@
 
 <body>
     <div id="app">
-        <div id="background" v-bind:class="{redBackground : isRed, greenBackground: isGreen}">
+        <div id="background" v-bind:class="{redBackground : isRed, greenBackground: isGreen, blankBackground: isLocationSet}">
             <div class="container">
 
-                <div class="outputContainer">
-                    <div class="timezone">
-                        {{cleanTimeZone}} - {{cleanTime}}
+                <transition name="expand">
+                    <div class="outputContainer" v-show="isLocationSet" key="yesno">
+                        <div class="timezone">
+                            <span>{{cleanTimeZone}} </span><span>-</span> <span>{{cleanTime}}</span>
+                        </div>
+                        <div class="canCall">
+                            <span>{{canCall}}</span>
+                        </div>
                     </div>
-                    <div class="canCall">
-                        {{canCall}}
-                    </div>
-                </div>
+                </transition>
 
-                <div class="inputContainer">
+                <div class="inputContainer" v-bind:class="{ subbed: isLocationSet }">
                     <div>Where are they?</div>
-                    <input v-model="location" placeholder="Location">
+                    <input v-model="location" placeholder="City">
                 </div>
             </div>
         </div>

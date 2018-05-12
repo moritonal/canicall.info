@@ -1,5 +1,11 @@
+#app,
+#background {
+    width: 100%;
+    height: 100%
+}
+
 body {
-    margin: 0;
+    margin: 0
 }
 
 #app {
@@ -7,17 +13,12 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+    overflow: hidden
 }
 
 #background {
-    width: 100%;
-    height: 100%;
-
-    background-color: #c0c0ff;
-    transition: 1s background-color ease-in-out;
+    background-color: #c3c3f6;
+    transition: 1s background-color ease-in-out
 }
 
 .container {
@@ -26,51 +27,89 @@ body {
     height: 100%;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .canCall {
-    font-size: 10em;
-}
-
-.timezone {
-
+    font-size: 10em
 }
 
 .inputContainer {
     padding: 5px 5px 20px;
-
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    transition: all 1s ease-in-out;
+    padding: 36px;
+    position: absolute;
+    transition: 1s ease-in-out;
+    bottom: 50%;
+    font-size: 1.6em;
 }
 
-.inputContainer > div {
-    user-select: none;
-}
-
-.inputContainer > input {
-    background-color: transparent;
-    border: none;
-    padding: 10px;
-    text-align: center;
+.subbed {
+    bottom: 0%;
+    font-size: 1.0em;
 }
 
 .outputContainer {
     flex-grow: 1;
-
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    overflow: hidden;
+    position: absolute;
+}
 
-    user-select: none;
+.inputContainer>input {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    transition: all 1s ease-in-out;
+}
+
+.inputContainer>div,
+.outputContainer {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
 }
 
 .redBackground {
-    background-color: #ff8787 !important;
+    background-color: #ff8787 !important
 }
 
 .greenBackground {
-    background-color:  #c0c0ff !important;
+    background-color: #c0c0ff !important
+}
+
+.blankBackground {
+    background-color: 0x0 !important;
+}
+
+.expand-enter-active, .expand-leave-active {
+    transition: 1s ease-in-out;
+}
+
+.expand-enter {
+    transform: translate(0px, -100%);
+    opacity: 0;
+}
+
+.expand-leave {
+    transform: translate(0px, 100%);
+    opacity: 0;
+}
+
+.expand-enter-to {
+    transform: translate(0px, 0px);
+}
+
+.expand-leave-to {
+    transform: translate(0px, -100%);
+    opacity: 0;
 }
