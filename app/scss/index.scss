@@ -53,6 +53,10 @@ body {
     font-size: 1.0em;
 }
 
+.inputContainer.subbed>input {
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
 .outputContainer {
     flex-grow: 1;
     display: flex;
@@ -65,10 +69,11 @@ body {
 
 .inputContainer>input {
     background-color: transparent;
-    border: none;
+    border: 1px solid rgba(0,0,0,0.1);
     padding: 10px;
     text-align: center;
     transition: all 1s ease-in-out;
+    margin: 10px;
 }
 
 .inputContainer>div,
