@@ -10,26 +10,23 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^4.0.1",
-    "gulp-autoprefixer": "^6.1.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-livereload": "^4.0.1",
-    "gulp-minify-css": "^1.2.4",
-    "gulp-raster": "^0.2.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-replace": "^1.0.0",
-    "gulp-run": "^1.7.1",
-    "gulp-sass": "^4.0.2",
-    "gulp-uglify": "^3.0.2",
-    "tiny-lr": "^1.1.1",
+    "@vue/component-compiler-utils": "^3.0.0",
+    "parcel": "^1.12.3",
+    "sass": "^1.21.0",
+    "typescript": "^3.5.1",
+    "vue-template-compiler": "^2.6.10",
     "workbox-build": "^4.3.1"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "debounce": "^1.2.0",
     "localforage": "^1.7.3",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
     "vue": "^2.6.10",
-    "vue-localstorage": "^0.6.2"
+    "vue-class-component": "^7.1.0",
+    "vue-hot-reload-api": "^2.3.3",
+    "vue-localstorage": "^0.6.2",
+    "vue-property-decorator": "^8.1.1"
   }
 }

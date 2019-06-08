@@ -1,15 +1,9 @@
 <html>
 
 <head>
-    <script src="/node_modules/moment/min/moment.min.js"></script>
-    <script src="/node_modules/moment-timezone/builds/moment-timezone-with-data-2012-2022.min.js"></script>
-    <script src="/node_modules/vue-localstorage/dist/vue-local-storage.min.js"></script>
-    <script src="/node_modules/vue/dist/vue.js"></script>
-    <script src="/node_modules/localforage/dist/localforage.min.js"></script>
+    <script src="/ts/index.ts"></script>
 
-    <script src="/js/index.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="scss/index.css">
+    <link rel="stylesheet" type="text/css" href="scss/index.scss">
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
@@ -18,52 +12,15 @@
     <meta name="description" content="Is it a good time to call somewhere?">
 
     <link rel="icon" href="/icon.png">
-    <link rel="manifest" href="/manifest.json">
+    <!--link rel="manifest" href="/manifest.json">-->
 
     <meta name="theme-color" content="#f5f5eb">
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-74945027-2"></script>
-    <script>
-
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-        gtag('config', 'UA-74945027-2');
-    </script>
 
 </head>
 
 <body>
     <div id="app">
-        <div id="background" v-bind:class="{redBackground : isRed, greenBackground: isGreen, blankBackground: isLocationSet}">
-            <div class="container">
-
-                <transition name="expand" v-on:after-leave="afterLeave">
-                    <div class="outputContainer" v-show="isLocationSet" key="yesno">
-                        <div class="timezone">
-                            <span>{{cleanTimeZone}} </span><span>-</span> <span>{{cleanTime}}</span>
-                        </div>
-                        <div class="canCall">
-                            <span>{{canCall}}</span>
-                        </div>
-                    </div>
-                </transition>
-
-                <div class="inputContainer" v-bind:class="{ subbed: isLocationSet }">
-                    <div>Where are they?</div>
-                    <input v-model="location" placeholder="City">
-                </div>
-
-                <div class="credits">
-                    <span>Made with 💛 by <a href="https://bonner.is">Tom</a>.</span>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </body>
 
