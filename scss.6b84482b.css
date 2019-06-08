@@ -1,0 +1,129 @@
+#app,
+#background {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+#app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+#background {
+  background-color: #c3c3f6;
+  transition: 1s background-color ease-in-out;
+}
+
+.container {
+  padding: 10px;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.canCall {
+  font-size: 5em;
+}
+
+.inputContainer {
+  padding: 5px 5px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: all 1s ease-in-out;
+  padding: 36px;
+  position: absolute;
+  transition: 1s ease-in-out;
+  font-size: 1.6em;
+}
+
+.subbed {
+  bottom: 0%;
+  font-size: 1em;
+}
+
+.inputContainer.subbed > input {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.outputContainer {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  position: absolute;
+  transform: translate(0px, -50%);
+}
+
+.inputContainer > input {
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  text-align: center;
+  transition: all 1s ease-in-out;
+  margin: 10px;
+}
+
+.inputContainer > div,
+.outputContainer {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.redBackground {
+  background-color: #ff8787 !important;
+}
+
+.greenBackground {
+  background-color: #c0c0ff !important;
+}
+
+.blankBackground {
+  background-color: 0x0 !important;
+}
+
+.expand-enter-active, .expand-leave-active {
+  transition: 1s ease-in-out;
+}
+
+.expand-enter {
+  transform: translate(0px, -100%);
+  opacity: 0;
+}
+
+.expand-leave {
+  transform: translate(0px, 100%);
+  opacity: 0;
+}
+
+.expand-enter-to {
+  transform: translate(0px, -50%);
+}
+
+.expand-leave-to {
+  transform: translate(0px, -100%);
+  opacity: 0;
+}
+
+.credits {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 0.7em;
+}
+
+/*# sourceMappingURL=/scss.6b84482b.css.map */
