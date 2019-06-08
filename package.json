@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "http-server": "http-server dist",
-    "watch": "gulp watch",
-    "build": "gulp"
+    "build": "parcel ./src/index.html"
   },
   "author": "",
   "license": "ISC",

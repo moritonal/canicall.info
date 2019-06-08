@@ -20,7 +20,7 @@ gulp.task("js", () => {
         .pipe(livereload(server));
 });
 
-gulp.task("images-144", function() {
+gulp.task("images-144", () => {
     return gulp.src("./app/images/**/*.svg")
         .pipe(replace("%text%", appName))
         .pipe(raster({scale: 3}))
@@ -28,21 +28,21 @@ gulp.task("images-144", function() {
         .pipe(gulp.dest(stagingDirectory));
 });
 
-gulp.task("images-528", ["images-144"], function() {
+gulp.task("images-528", gulp.series("images-144", () => {
     return gulp.src("./app/images/**/*.svg")
         .pipe(replace("%text%", appName))
         .pipe(raster({scale: 11}))
         .pipe(rename({extname: '.png', suffix: "-528"}))
         .pipe(gulp.dest(stagingDirectory));
-});
+}));
 
-gulp.task("images", ["images-528"], function() {
+gulp.task("images", gulp.series("images-528", () => {
     return gulp.src("./app/images/**/*.svg")
         .pipe(replace("%text%", appName))
         .pipe(raster({scale: 1}))
         .pipe(rename({extname: '.png'}))
         .pipe(gulp.dest(stagingDirectory));
-});
+}));
 
 gulp.task("sass", () => {
     return gulp.src("./app/**/*.scss")
@@ -65,32 +65,25 @@ gulp.task("html", () => {
         .pipe(livereload(server));
 });
 
-gulp.task("copyPackageJson", function() {
+gulp.task("copyPackageJson", () => {
     return gulp.src("package.json")
         .pipe(gulp.dest(stagingDirectory));    
 });
 
 const run = require("gulp-run");
 
-gulp.task("runNpmInstall", ["copyPackageJson"], function() {
+gulp.task("runNpmInstall", gulp.series("copyPackageJson", () => {
     return run("npm install --production", { cwd: stagingDirectory}).exec();
-});
+}));
 
 gulp.task("manifest", () => {
     return gulp.src("./app/manifest.json")
         .pipe(gulp.dest(stagingDirectory));
 });
 
-gulp.task("noJekyll", ["generate-service-worker"], () => {
-    const path = require("path");
-    const fs = require("fs");
-
-    fs.writeFileSync(path.join(stagingDirectory, ".nojekyll"), "")
-})
-
 gulp.task("code", ["js", "sass", "index", "html", "runNpmInstall", "images", "manifest"])
 
-gulp.task('generate-service-worker', ["code"], () => {
+gulp.task('generate-service-worker', gulp.series("code", () => {
     return workbox.generateSW({
         globDirectory: stagingDirectory,
         globPatterns: ["**\/*.{html,js,css,jpg}"],
@@ -115,21 +108,15 @@ gulp.task('generate-service-worker', ["code"], () => {
     }).catch((error) => {
         console.warn('Service worker generation failed: ' + error);
     });
-});
+}));
 
-const lr = require('tiny-lr');
-const server = lr();
+gulp.task("noJekyll", gulp.series("generate-service-worker", async () => {
+    const path = require("path");
+    const fs = require("fs");
 
-// Watch Files For Changes
-gulp.task('watch', function() {
+    new Promise(res => 
+        fs.writeFile(path.join(stagingDirectory, ".nojekyll"), "",
+            () => res()));
+}));
 
-    livereload.listen();
-    
-    gulp.watch('./app/js/*.js', ['js']);
-    gulp.watch('./app/scss/*.scss', ['sass']);
-    gulp.watch('./app/images/**', ['images']);
-    gulp.watch('./app/**/*.html', ['html']);
-    gulp.watch('./app/*.html', ['index']);
-});
-
-gulp.task("default", ["noJekyll"]);
+gulp.task("default", gulp.series("noJekyll"));
