@@ -16,7 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.1.2",
-    "parcel": "^1.12.4",
+    "parcel": "^2.8.2",
     "sass": "^1.26.9",
     "typescript": "^3.9.5",
     "vue-template-compiler": "^2.6.11",
