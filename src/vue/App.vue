@@ -42,6 +42,9 @@ export default class App extends Vue {
         
     location : string = ""
     awesome: boolean = false
+    refreshTimerId: number | null = null;
+    debouncedHandleLocationChanged = null;
+    readonly refreshIntervalMs: number = 15 * 60 * 1000;
 
     data() {
         return {
@@ -79,8 +82,29 @@ export default class App extends Vue {
             this.location = storedLocation;
         }
 
-        this.handleLocationChanged = debounce(this.handleLocationChanged, 500).bind(this);
+        this.debouncedHandleLocationChanged = debounce((newValue) => {
+            this.handleLocationChanged(newValue);
+        }, 500);
     };
+
+    mounted() {
+        window.addEventListener("focus", this.handleFocus);
+        document.addEventListener("visibilitychange", this.handleVisibilityChange);
+
+        this.refreshTimerId = window.setInterval(() => {
+            this.refreshLatestInfo();
+        }, this.refreshIntervalMs);
+    }
+
+    beforeDestroy() {
+        window.removeEventListener("focus", this.handleFocus);
+        document.removeEventListener("visibilitychange", this.handleVisibilityChange);
+
+        if (this.refreshTimerId !== null) {
+            window.clearInterval(this.refreshTimerId);
+            this.refreshTimerId = null;
+        }
+    }
 
     localStorage: {
 
@@ -146,7 +170,9 @@ export default class App extends Vue {
 
     @Watch("location")
     async onLocationChanged(newValue) {
-        this.handleLocationChanged(newValue);
+        if (this.debouncedHandleLocationChanged) {
+            this.debouncedHandleLocationChanged(newValue);
+        }
     }
 
     async handleLocationChanged(newValue) {
@@ -220,6 +246,24 @@ export default class App extends Vue {
         let timeZonedMoment = moment().tz(timeZone);
 
         console.log(`Current hour: ${timeZonedMoment.format("HH")}`)
+    }
+
+    handleFocus = () => {
+        this.refreshLatestInfo();
+    };
+
+    handleVisibilityChange = () => {
+        if (!document.hidden) {
+            this.refreshLatestInfo();
+        }
+    };
+
+    async refreshLatestInfo() {
+        if (!this.location) {
+            return;
+        }
+
+        await this.handleLocationChanged(this.location);
     }
 }
 
